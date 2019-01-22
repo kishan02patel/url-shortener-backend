@@ -17,7 +17,8 @@ app.get('/hash/:hash', (req, res) => {
 	Bookmark.findOne({ hashedURL: req.params.hash })
 		.then(response => {
 			if (response) {
-				res.send(response)
+				// res.send(response)
+				res.redirect(response.originalURL)
 				Bookmark.findByIdAndUpdate(response._id, { $push: { clicks: getUserInfo(req) } }, { new: true })
 					.then(() => { })
 					.catch(err => console.log('Error in updating the clicks array', err))
