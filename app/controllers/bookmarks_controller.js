@@ -23,6 +23,17 @@ router.post('/', (req, res) => {
 		.catch((err) => res.send(err))
 })
 
+router.get('/tags', (req, res) => {
+	Bookmark.find({ tags: { "$in": req.query.names.split(',') } })
+		.then(response => {
+			if (response.length > 0)
+				res.send(response)
+			else
+				res.send('No bookmark found with specified tags.')
+		})
+		.catch(err => res.send(err))
+})
+
 router.get('/:id', (req, res) => {
 	Bookmark.findById(req.params.id)
 		.then(response => {
@@ -43,6 +54,18 @@ router.patch('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
 	Bookmark.findByIdAndRemove(req.params.id)
 		.then(response => res.send(response))
+		.catch(err => res.send(err))
+})
+
+router.get('/tags/:name', (req, res) => {
+	console.log(req.params.name)
+	Bookmark.find({ tags: req.params.name })
+		.then(response => {
+			if (response.length > 0)
+				res.send(response)
+			else
+				res.send('No bookmark found with specified tag.')
+		})
 		.catch(err => res.send(err))
 })
 
