@@ -35,7 +35,7 @@ const bookmarkSchema = new Schema({
 	}
 })
 
-bookmarkSchema.pre('validate', (next) => {
+bookmarkSchema.pre('validate', function (next) {
 	this.hashedURL = shorthash.unique(this.originalURL)
 	next()
 })
