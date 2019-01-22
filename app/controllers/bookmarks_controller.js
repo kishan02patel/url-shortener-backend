@@ -34,6 +34,18 @@ router.get('/:id', (req, res) => {
 		.catch(err => res.send(err))
 })
 
+router.patch('/:id', (req, res) => {
+	Bookmark.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true })
+		.then(response => res.send(response))
+		.catch(err => res.send(err))
+})
+
+router.delete('/:id', (req, res) => {
+	Bookmark.findByIdAndRemove(req.params.id)
+		.then(response => res.send(response))
+		.catch(err => res.send(err))
+})
+
 module.exports = {
 	bookmarksController: router
 }
