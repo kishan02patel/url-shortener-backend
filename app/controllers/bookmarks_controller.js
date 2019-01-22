@@ -4,6 +4,7 @@ const { Bookmark } = require('../models/bookmark')
 router.use(express.json())
 
 router.get('/', (req, res) => {
+	console.log('Bookmarks GET page called /bookmarks')
 	Bookmark.find()
 		.then((response) => {
 			if (response.length > 0)
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+	console.log('Bookmarks POST page called /bookmarks')
 	const newBookmark = new Bookmark(req.body)
 	newBookmark.save()
 		.then((response) => {
@@ -24,6 +26,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/tags', (req, res) => {
+	console.log('GET bookmarks by tags page called /bookmarks/tags')
 	Bookmark.find({ tags: { "$in": req.query.names.split(',') } })
 		.then(response => {
 			if (response.length > 0)
@@ -35,6 +38,7 @@ router.get('/tags', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
+	console.log('GET bookmark by id page called /bookmarks/:id')
 	Bookmark.findById(req.params.id)
 		.then(response => {
 			if (response)
@@ -46,19 +50,21 @@ router.get('/:id', (req, res) => {
 })
 
 router.patch('/:id', (req, res) => {
+	console.log('PATCH bookmark page called /:id')
 	Bookmark.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true })
 		.then(response => res.send(response))
 		.catch(err => res.send(err))
 })
 
 router.delete('/:id', (req, res) => {
+	console.log('DELETE bookmark page called /bookmarks/:id')
 	Bookmark.findByIdAndRemove(req.params.id)
 		.then(response => res.send(response))
 		.catch(err => res.send(err))
 })
 
 router.get('/tags/:name', (req, res) => {
-	console.log(req.params.name)
+	console.log('GET bookmarks by tag page called /bookmarks/tags/:name')
 	Bookmark.find({ tags: req.params.name })
 		.then(response => {
 			if (response.length > 0)
