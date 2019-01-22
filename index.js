@@ -3,9 +3,17 @@ const app = express()
 const { bookmarksController } = require('./app/controllers/bookmarks_controller')
 const { Bookmark } = require('./app/models/bookmark')
 const { getUserInfo } = require('./app/helpers/utility')
+const morgan = require('morgan')
+const fs = require('fs')
 require('./config/db_config')
 app.use(express.json())
 const port = 3001
+
+// Create a file stream to write to the log file.
+var accessLogStream = fs.createWriteStream('./logs/access.log', { flags: 'a' })
+
+// Logging each user request in specified format and passing the steam variable to write to the log.
+app.use(morgan('{ methodName: \':method\', URL: \':url\', statusCode: \':status\', responseSize: \':res[content - length]\', responseTime: \':response-time ms\', date: \':date[iso]\', remoteAddress: \':remote-addr\', remoteUser: \':remote-user\' }', { stream: accessLogStream }))
 
 app.get('/', (req, res) => {
 	console.log('Homepage called /')
