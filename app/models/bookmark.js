@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const shorthash = require('shorthash')
 const { Schema } = mongoose
 
 const bookmarkSchema = new Schema({
@@ -32,6 +33,11 @@ const bookmarkSchema = new Schema({
 		required: true,
 		default: Date.now
 	}
+})
+
+bookmarkSchema.pre('validate', (next) => {
+	this.hashedURL = shorthash.unique(this.originalURL)
+	next()
 })
 
 const Bookmark = mongoose.model('Bookmark', bookmarkSchema)
