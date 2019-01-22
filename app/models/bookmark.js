@@ -32,6 +32,18 @@ const bookmarkSchema = new Schema({
 		type: Date,
 		required: true,
 		default: Date.now
+	},
+	clicks: {
+		type: [{
+			timestamp: {
+				type: Date,
+				default: Date.now
+			},
+			ipAddress: String,
+			browserName: String,
+			operatingSystem: String,
+			device: String
+		}]
 	}
 })
 
