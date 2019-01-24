@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { Bookmark } = require('../models/bookmark')
+const shorthash = require('shorthash')
 router.use(express.json())
 
 router.get('/', (req, res) => {
@@ -51,6 +52,8 @@ router.get('/:id', (req, res) => {
 
 router.patch('/:id', (req, res) => {
 	console.log('PATCH bookmark page called /:id')
+	if (req.body.originalURL)
+		req.body.hashedURL = shorthash.unique(req.body.originalURL)
 	Bookmark.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true })
 		.then(response => res.send(response))
 		.catch(err => res.send(err))
