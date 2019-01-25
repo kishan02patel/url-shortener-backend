@@ -22,8 +22,8 @@ app.get('/', (req, res) => {
 
 app.use('/bookmarks', bookmarksController)
 
-app.get('/hash/:hash', (req, res) => {
-	console.log('Hash page called /hash/:hash')
+app.get('/:hash', (req, res) => {
+	console.log('Hash page called /:hash')
 	Bookmark.findOne({ hashedURL: req.params.hash })
 		.then(response => {
 			if (response) {
