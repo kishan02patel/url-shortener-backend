@@ -1,7 +1,7 @@
 {
   "name": "url-shortener-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A website that lets you shorten the url",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.19.0",
@@ -12,15 +12,21 @@
     "useragent": "^2.3.0",
     "validator": "^10.11.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "start-dev": "nodemon index.js",
+    "test": "mocha tests/*.test.js",
+    "test-watch": "nodemon --exec \"npm run test\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kishan02patel/url-shortener-backend.git"
   },
-  "author": "",
+  "author": "Kishan Patel",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kishan02patel/url-shortener-backend/issues"
