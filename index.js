@@ -7,7 +7,7 @@ const morgan = require('morgan')
 const fs = require('fs')
 require('./config/db_config')
 app.use(express.json())
-const port = 3001
+const port = process.env.PORT || 3000
 
 // Create a file stream to write to the log file.
 var accessLogStream = fs.createWriteStream('./logs/access.log', { flags: 'a' })
