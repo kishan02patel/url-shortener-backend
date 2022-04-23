@@ -4,7 +4,7 @@
   "description": "A website that lets you shorten the url",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.2",
     "express": "^4.16.4",
     "mongoose": "^5.4.6",
     "morgan": "^1.9.1",
